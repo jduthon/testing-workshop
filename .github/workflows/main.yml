@@ -30,5 +30,11 @@ jobs:
         run: npm run test
 
       - name: Deploy to GH pages
-        run: npm run deploy
-        if: ${{ github.ref == 'master' }}
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR}@bots.github.com"
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
