@@ -2,10 +2,13 @@ import { render } from '@testing-library/react';
 import Converter from './converter';
 
 
-const { getByText } = render(<Converter />);
-const text = getByText('1 m = 100 cm');
+const { getByLabelText } = render(<Converter />);
+const myInput = getByLabelText('Meters to convert:');
 describe('Converter',() => {
-  it ('has initial text', () => {
-    expect(text).toBeDefined();
+  it ('has the input field', () => {
+    expect(myInput).toBeDefined();
+  })
+  it('calculates the correct result', () => {
+    
   })
 })

@@ -1,10 +1,13 @@
 import {useState} from 'react'
 
 const Converter = () => {
-  const [count, setCount] = useState(0);
+  const [meters, setInput] = useState(0);
+  const conversionRate = 100;
   return (
-    
-    <p><input type="number" value={count} onChange={event => setCount(event.target.value)}/></p>
+    <div>
+      <label htmlFor='meterInput'>Meters to convert:</label>
+      <input type="number" id='meterInput' value={meters} onChange={event => setInput(event.target.value)}/>{` m = ${meters * conversionRate} cm`}
+    </div> 
   )
 }
 
