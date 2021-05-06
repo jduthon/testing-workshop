@@ -1,0 +1,37 @@
+name: Push Workflow
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Deploy to GH pages
+        run: npm run deploy
+        if: ${{ github.ref == 'master' }}
