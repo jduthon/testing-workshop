@@ -1,6 +1,10 @@
+import {useState} from 'react'
+
 const Converter = () => {
+  const [count, setCount] = useState(0);
   return (
-    <p>1 m = 100 cm</p>
+    
+    <p><input type="number" value={count} onChange={event => setCount(event.target.value)}/></p>
   )
 }
 
