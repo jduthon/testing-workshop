@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy to GH pages
         run: npm run deploy
-        if: ${{ github.ref == 'master' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
